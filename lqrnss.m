@@ -210,7 +210,7 @@ Ps=0. ;
 %Variable used to change plot color
 %Initialize P matrix plot variable
 for i=1:1:n*n
-    j = 1
+    j = 1;
     for t1a=t0: .1:tf
         Tt=-inv(W22-F*W12)*(W21-F*W11);
         P=real((W21+W22*expm(-Md*(tf-t1a))*Tt*expm(-Md * (tf-t1a))) * inv(W11+W12*expm(-Md*(tf-t1a))*Tt *expm(-Md*(tf-t1a))));
@@ -224,7 +224,7 @@ for i=1:1:n*n
         title('Plot of Riccati Coefficients')
         xlabel ('t')
         ylabel ('P Matrix')
-        hold
+        hold on
         cflag=2;
     else
         if cflag==2
@@ -242,7 +242,7 @@ for i=1:1:n*n
         j=1 ;
     end
     if cflag==2 || cflag==3 || cflag==4
-        hold
+        hold on
         fig=fig+1;
     end
     %
