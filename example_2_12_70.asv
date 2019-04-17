@@ -1,0 +1,7 @@
+clear
+clc
+clear all
+
+S = dsolve('Dx1 = x2', 'Dx2 = -lambda2', 'Dlambda1 = 0', 'Dlambda2 = -lambda1, x1(0) = 1, x2(0) = 2, x1(2) = 1, x2(2) = 0')
+
+t = 0 : 0.01 : 2
