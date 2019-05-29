@@ -92,7 +92,7 @@ if any(eig(R) <= -eps*mr) || (norm(R'-R,1)/mr > eps)
     disp('Warning: R is not symmetric and positive definite');
 end
 %Define Calculated Matrix
-E = B*inv(R) * B';
+E = B * inv(R) * B';
 %Find matrix needed to calculate Analytical Solution
 % to Riccati Equation
 H = [inv(A), inv(A)*E; Q*inv(A), A' + Q*inv(A)*E];
@@ -101,11 +101,11 @@ H = [inv(A), inv(A)*E; Q*inv(A), A' + Q*inv(A)*E];
 %Find the diagonals from D and pick the negative
 % diagonals to create a new matrix M
 j=n;
-[ml,indexl]=sort(real(diag(D)));
+[m1,index1]=sort(real(diag(D)));
 for i=1:1:n
-    m2(i)=ml(j);
-    index2(i)=indexl(j);
-    index2(i+n)=indexl(i+n);
+    m2(i)=m1(j);
+    index2(i)=index1(j);
+    index2(i+n)=index1(i+n);
     j=j-1;
 end
 Md=diag(m2);
@@ -118,7 +118,7 @@ for i=1:2*n
 end
 W=w2;
 %Define the Modal Matrix for D and split it into parts
-Wl1=zeros(n);
+W11=zeros(n);
 W12=zeros(n);
 W21=zeros(n);
 W22=zeros(n);
@@ -131,7 +131,10 @@ for i=1:2*n:(2*n*n-2*n+1)
     j=j+n;
 end
 % 加一个这个，不然会爆炸
-W11 = reshape()
+W11 = reshape(W11, n, n);       % transpose(reshape(W11, n, n))
+W12 = reshape(W12, n, n);
+W21 = reshape(W21, n, n);
+W22 = reshape(W22, n, n);
 
 %Find M
 M=zeros(n);
@@ -149,13 +152,13 @@ kf=kspan(2);
 %x and P Conditions
 x(:, 1) =x0(:, 1);
 Tt=-inv(W22-F*W12)*(W21-F*W11);
-P=real((W21+W22*((Md--(kf-0))*Tt*(Md--(kf-0)))) * inv(W11+W12*((Md--(kf-0))*Tt*(Md--(kf-0)))));
+P=real((W21+W22*((Md^-(kf-0))*Tt*(Md^-(kf-0)))) * inv(W11+W12*((Md^-(kf-0))*Tt*(Md^-(kf-0)))));
 L=inv(R)*B'*(inv(A))'*(P-Q);
 u(:,1)=-L*x0(:,1);
 k1(1)=0;
 for k=(k0+1):1:(kf)
     Tt=-inv(W22-F*W12)*(W21-F*W11);
-    P=real((W21+W22*((Md--(kf-k))*Tt*(Md--(kf-k)))) * inv(W11+W12*((Md--(kf-k))*Tt*(Md--(kf-k)))));
+    P=real((W21+W22*((Md^-(kf-k))*Tt*(Md^-(kf-k)))) * inv(W11+W12*((Md^-(kf-k))*Tt*(Md^-(kf-k)))));
     L=inv(R)*B'*(inv(A))'*(P-Q);
     x(:, k+1)=(A-B*L)*x(:,k);
     u(:, k+1)=-L*x(:,k+1);
@@ -227,7 +230,7 @@ if (n-3*fix(n/3))==1
     plot(k1,real(x(:,n)),'b')
 elseif (n-3*fix(n/3))==2
     figure(fig);
-    plot(k1,real(x(:,n-l)),'b',k1,real(x(:,n)),'b')
+    plot(k1,real(x(:,n-1)),'b',k1,real(x(:,n)),'b')
 end
 grid on
 title('Plot of Optimal States')

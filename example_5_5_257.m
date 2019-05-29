@@ -14,9 +14,9 @@ x0( : ,1) = [5. ; 3.] ;
 [x,u]=lqrdnss(A,B,F,Q,R,x0,kspan);
 
 % 如果是离散的
-C   = [ 1  1 ];
-D   = [ 1 ];
-[X,L,G]=dare(A,B,Q,R);
+%C   = [ 1  1 ];
+%D   = [ 1 ];
+%[X,L,G]=dare(A,B,Q,R);
 %[ Y, X, t ] = initial(A - B*transpose(real(L)), B, C, D, x0);  % initial(A - B*K, BIN, C, D, X0, tfinal);
 %figure;
 %plot(t, X)
