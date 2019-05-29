@@ -75,11 +75,32 @@ p22=p ( : , 3) ;
 x1=x(: ,1) ;
 x2=x(: ,2);
 g2=flipud(g(:,2));
-for i=1:1:n
-u(i) = -250*(p12(i)*x1(i) + p22(i)*x2(i) - g2(i));
+% for i=1:1:n
+% u(i) = -250*(p12(i)*x1(i) + p22(i)*x2(i) - g2(i));
+% end
+k = [];
+for i = 1 : size(g, 1)
+    P_real = [ p(i, 1), p(i, 2);
+               p(i, 2), p(i, 3) ];
+    k(i, :) = inv(R) * transpose(B) * P_real;
 end
+
+u = [];
+for i = 1 :size(g, 1)
+    u(i, :) = -k(i, :) * transpose(x(i, :)) + inv(R) * transpose(B) * transpose(g(i, :));
+end
+
 figure(fig);
 plot(tp,real(u),'b')
 grid on
 xlabel ('t')
 ylabel('Optimal Control')
+
+% 还没完
+% 最后一步关键是要给Simulink一个合适的值
+t_ = transpose(flipud(tp));
+u_ = transpose(flipud(u));
+% u_sim.time = t_;
+% u_sim.signal.values = u_;
+% u_sim.signal.deminsions = 1;
+u_sim = [t_; u_];               % 这个值另存为给u_4_2，代入Simulink
