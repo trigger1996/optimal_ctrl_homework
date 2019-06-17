@@ -59,24 +59,33 @@ end
 % let us first reorder the values of k = 0 to 10
 k = 1 : kf;          % 补一句，不然画图会出错
 figure(1)
-plot(k,P11,'r:o',k,P12,'g:+',k,P22,'b:*')
+plot(k,P11,'r:o',k,P12,'g:+',k,P22,'b:*', 'linewidth', 3)
 xlabel ('k')
 ylabel('Riccati Coefficients')
+l2 = legend('p_{11}', 'p_{12}', 'p_{22}')
+set(l2, 'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',35)
+set(gca,'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',25)
 % gtext('p_{11}(k)')
 % gtext('p_{12}(k)=p_{21}(k)')
 % gtext('p_{22}(k)')
 %
 figure(2)
-plot(k,x1,'r:o',k,x2,'g:+')
+plot(k,x1,'r:o',k,x2,'g:+', 'linewidth', 3)
 xlabel( 'k')
 ylabel('Optimal States')
+l2 = legend('x_1', 'x_2')
+set(l2, 'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',35)
+set(gca,'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',25)
 % gtext ('x_l (k)')
 % gtext ('x_2 (k)')
 %
 figure(3)
-plot (k, u, 'b: *')
+plot (k, u, 'b: *', 'linewidth', 3)
 xlabel ('k')
 ylabel('Optimal Control')
+l3 = legend('u')
+set(l3, 'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',35)
+set(gca,'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',25)
 % gtext('u(k) ')
 
 %%
@@ -90,12 +99,18 @@ for k = 1 : kspan - 1
     X(k + 1, :) = (A - B' * L) * transpose(X(k, :));
 end
 
+u_ = []
 for k = 1 : kspan
-    u(k) = -L * transpose(X(k, :));
+    u_(k,:) = -L * transpose(X(k, :));
 end
 
 figure()
-plot(1:kspan, X)
+plot(1:kspan, X, 'LineWidth', 3)
+xlabel ('k')
+ylabel('Optimal Control')
+l3 = legend('x1', 'x2')
+set(l3, 'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',35)
+set(gca,'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',25)
 
 % kspan = 0 : 40;
 % x0 = [1; 2];

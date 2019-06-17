@@ -38,10 +38,13 @@ odeset('refine',2,'RelTol',1e-4,'AbsTol',1e-6));
 fig=1; %Figure number
 figure (fig)
 plot(tp,real(p(:,1)),'r',tp,real(p(:,2)),'g',tp, ...
-real (p ( : ,3) ) , 'b')
+     real (p ( : ,3) ) , 'b', 'LineWidth',3)
 grid on
 xlabel (' t')
 ylabel('Riccati Coefficients')
+l1 = legend('P_{11}', 'P_{12}', 'P_{22}')
+set(l1, 'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',35)
+set(gca,'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',25)
 hold
 %
 fig=fig+1;
@@ -49,10 +52,14 @@ fig=fig+1;
 %Plot g values
 %
 figure(fig);
-plot(tg,real(g(:,1)),'r',tg,real(g(:,2)),'g')
+plot(tg,real(g(:,1)),'r',tg,real(g(:,2)),'g', 'LineWidth',3)
 grid on
 xlabel (' t')
 ylabel('g vector')
+l2 = legend('g_1', 'g_2')
+set(l2, 'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',35)
+set(gca,'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',25)
+
 %%
 %
 fig=fig+1;
@@ -60,10 +67,14 @@ fig=fig+1;
 %Plot Optimal States x
 %
 figure(fig);
-plot(tx,real(x(:,1)),'r',tx,real(x(:,2)),'g')
+plot(tx,real(x(:,1)),'r',tx,real(x(:,2)),'g', 'LineWidth',3)
 grid on
 xlabel (' t')
 ylabel('Optimal States')
+l3 = legend('X_1', 'X_2')
+set(l3, 'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',35)
+set(gca,'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',25)
+
 %
 fig=fig+1;
 %
@@ -91,10 +102,13 @@ for i = 1 :size(g, 1)
 end
 
 figure(fig);
-plot(tp,real(u),'b')
+plot(tp,real(u),'b', 'LineWidth',3)
 grid on
 xlabel ('t')
 ylabel('Optimal Control')
+l4 = legend('u')
+set(l4, 'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',35)
+set(gca,'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',25)
 
 % 还没完
 % 最后一步关键是要给Simulink一个合适的值
