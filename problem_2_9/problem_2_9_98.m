@@ -48,11 +48,20 @@ X0 = [3, 2];
 ut = -K * X';
 
 figure
-plot(t, X(:,1), 'r')
+plot(t, X(:,1), 'r', 'LineWidth',3)
 hold on
-plot(t, X(:,2), 'g')
-
+plot(t, X(:,2), 'g', 'LineWidth',3)
+xlabel('t')
+ylabel('x(t)')
+l1 = legend('x_1','x_2')
+set(l1, 'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',35)
+set(gca,'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',25)
+ 
 figure
-plot(t, ut, 'b')
+plot(t, ut, 'b', 'LineWidth',3)
 xlabel('t')
 ylabel('u(t)')
+l2 = legend('Optimal Control')
+set(l2, 'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',35)
+set(gca,'Fontname', 'Times New Roman', 'FontAngle','Italic', 'FontSize',25)
+
